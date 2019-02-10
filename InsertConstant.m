@@ -1,0 +1,13 @@
+function InsertConstant()
+Model = gcs;
+Position = get_param(Model, 'Location');
+Offset = get_param(Model, 'ScrollbarOffset');
+Position(1:2) = Offset;
+Position = [Position(1) + Offset(1), Position(2) + Offset(2), ...
+    Position(1) + 30, Position(2) + 15];
+Block = add_block('simulink/Sources/Constant', [gcs, '/Constant'], ...
+    'MakeNameUnique', 'on');
+set_param(Block, ...
+    'OutDataTypeStr', 'Inherit: Inherit via back propagation', ...
+    'Value', '0')%'Position', Position)
+end
